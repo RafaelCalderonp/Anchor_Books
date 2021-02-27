@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.anchorbooks.databinding.FragmentFirstBinding
 import com.example.anchorbooks.viewModel.BooksViewModel
 
@@ -28,6 +30,16 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapter = BooksAdapter()
+        mBinding.rvListBooks.adapter = adapter
+        mBinding.rvListBooks.layoutManager = LinearLayoutManager(context)
+
+        mViewModel.getBooksList().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.update(it)
+            }
+        })
 
 
 

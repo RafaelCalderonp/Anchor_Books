@@ -13,6 +13,7 @@ class BooksRepository (private val booksDao: BooksDao){
     suspend fun fetchBooks(){
         val service = kotlin.runCatching { networkService.fetchBooksList() }
         service.onSuccess {
+            Log.d("REPO", "ENTRE")
             when(it.code()){
                 200 -> it.body()?.let {
                     booksDao.insertAllBooks(fromInternetToBooksEntity(it))

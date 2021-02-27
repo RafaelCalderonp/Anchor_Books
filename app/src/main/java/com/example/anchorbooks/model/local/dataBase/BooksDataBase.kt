@@ -5,11 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.anchorbooks.model.local.BooksDao
+import com.example.anchorbooks.model.local.entities.BookDetailEntity
 import com.example.anchorbooks.model.local.entities.BooksEntity
 
 
-@Database(entities = [BooksEntity::class], version = 1)
+@Database(entities = [BooksEntity::class, BookDetailEntity::class], version = 1, exportSchema = false)
 abstract class BooksDataBase : RoomDatabase() {
+
     abstract fun getBooksDao() : BooksDao
 
     companion object{
